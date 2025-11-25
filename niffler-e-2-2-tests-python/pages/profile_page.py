@@ -5,12 +5,6 @@ from pages.spendings_page import SpendingPage
 
 spending_page = SpendingPage()
 
-# тест зайти в профиль - виден текст профиль
-# тест вписать имя - видн алерт
-# добавить категорию
-# заархивировать категорию
-# редактировать категорию
-# добавить пустую категорию
 class ProfilePage:
 
     def __init__(self):
