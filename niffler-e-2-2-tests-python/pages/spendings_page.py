@@ -36,10 +36,6 @@ class SpendingPage:
         self.delete_alert = browser.element('//div[contains(text(), "Spendings succesfully deleted")]')
 
 
-    def open_spending_page(self):
-        auth_page.login()
-
-
     def fill_amount(self, amount: int):
         self.amount.type(amount)
 
@@ -78,7 +74,7 @@ class SpendingPage:
 
 
     def add_spending(self):
-        self.open_spending_page()
+        auth_page.login()
         self.add_spending_btn.click()
         self.fill_amount(amount=random.randint(1, 100))
         self.currency.click()
