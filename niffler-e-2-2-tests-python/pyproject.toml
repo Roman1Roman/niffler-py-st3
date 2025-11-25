@@ -1,0 +1,25 @@
+[project]
+name = "niffler-e-2-2-tests-python"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13, <4.0"
+dependencies = [
+    "pytest (>=9.0.1,<10.0.0)",
+    "selene (==2.0.0rc9)",
+    "python-dotenv (>=1.2.1,<2.0.0)",
+    "faker (>=38.0.0,<39.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+python_files = ["*_tests.py", "test_*.py"]
+addopts = ["-v", "-s"]
+pythonpath = '.'
