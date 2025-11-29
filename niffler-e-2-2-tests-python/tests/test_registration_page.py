@@ -1,13 +1,14 @@
 from selene import have, be
 from pages.auth_reg_page import AuthRegistrationPage
+from conftest import Pages
 
 page = AuthRegistrationPage()
 
 
 class TestRegistration:
 
+    @Pages.auth
     def test_register_user(self, generate_user_data):
-        page.open_auth_page()
         page.to_register_btn.click()
         page.fill_username(username=generate_user_data.get('username'))
         page.fill_password(password=generate_user_data.get('password'))
@@ -20,9 +21,9 @@ class TestRegistration:
         page.success_text.should(have.text("Congratulations! You've registered!"))
 
 
+    @Pages.registration
     def test_register_existed_user(self, existed_user_credentials):
         # подразумеваем, что есть предсозданная учетка (из .env)
-        page.open_register_page()
         page.fill_username(username=existed_user_credentials.get('username'))
         page.fill_password(password=existed_user_credentials.get('password'))
         page.submit_password(password=existed_user_credentials.get('password'))
@@ -31,8 +32,8 @@ class TestRegistration:
             have.text(f'Username `{existed_user_credentials.get('username')}` already exists'))
 
 
+    @Pages.registration
     def test_register_user_invalid_pass(self, generate_user_data):
-        page.open_register_page()
         page.fill_username(username=generate_user_data.get('username'))
         page.fill_password(password=generate_user_data.get('password'))
         page.submit_password(password=generate_user_data.get('submit_pass'))
@@ -40,8 +41,8 @@ class TestRegistration:
         page.form_error.should(be.visible).should(have.text('Passwords should be equal'))
 
 
+    @Pages.registration
     def test_visible_input_errors(self):
-        page.open_register_page()
         page.fill_username(username='1')
         page.fill_password(password='1')
         page.submit_password(password='1')
