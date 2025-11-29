@@ -1,11 +1,15 @@
 import random
+from pickle import FALSE
 
 import pytest
 from selene import have, be
+
+from models.category import CategoryAdd
+from models.spend import SpendAdd
 from pages.auth_reg_page import AuthRegistrationPage
 from pages.spendings_page import SpendingPage
 from faker import Faker
-from conftest import Auth, category, TestData
+from conftest import Auth, category, TestData, Pages
 
 auth_page = AuthRegistrationPage()
 spending_page = SpendingPage()
@@ -52,11 +56,19 @@ class TestSpending:
         spending_page.delete_button.click()
 
 
-    def test_delete_spending(self):
-        spending_page.add_spending()
+    @Pages.main
+    @TestData.category('schools')
+    @TestData.spends(
+        SpendAdd(
+            amount=104.3,
+            description='test descr',
+            category=CategoryAdd(username='test_name', archived=False),
+            spendDate='2024-08-08T18:39:23.955Z',
+            currency='RUB',
+        )
+    )
+    def test_delete_spending(self, spends, category):
         spending_page.table_checkbox.click()
         spending_page.table_delete_btn.click()
         spending_page.delete_button.click()
         spending_page.delete_alert.should(be.visible)
-
-    #TestData.spends + фиктсура spends в тесте (создание апишкой и проверка полей
