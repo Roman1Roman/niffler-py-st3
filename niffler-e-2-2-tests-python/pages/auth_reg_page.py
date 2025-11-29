@@ -20,7 +20,7 @@ class AuthRegistrationPage:
 
 
     def open_auth_page(self):
-        return browser.open(os.getenv('AUTH_URL'))
+        browser.open(os.getenv('AUTH_URL'))
 
 
     def open_register_page(self):
