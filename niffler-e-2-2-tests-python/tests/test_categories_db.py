@@ -33,7 +33,7 @@ class TestCategory:
             currency='RUB',
         )
     )
-    def test_category_in_db(self, spend_db, spends, spends_client):
+    def test_spend_in_db(self, spend_db, spends, spends_client):
         response = spend_db.get_user_spends(username=self.username)
         spends = response[0]
         assert spends.username == self.username
